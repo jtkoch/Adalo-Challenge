@@ -1,23 +1,24 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.scss';
 import * as ReactBootStrap from 'react-bootstrap';
+import { Route, Link } from 'react-router-dom';
+import Table from './components/Table';
 
 const App = () => {
-  const [data, setData] = useState([
-    {name: "Bianchi", description: "Road Bike", price: "$3000"},
-    {name: "Surly", description: "Tour Bike", price: "$1500"},
-    {name: "Peugeot", description: "Vintage Road Bike", price: "$800"},
-    {name: "Yeti", description: "Mountain Bike", price: "$4500"}
-  ]);
-
-  console.log(data);
-
-  const renderData = (data, index) => {
+  const info = [
+    {name: "", description: "", price: ""},
+    {name: "", description: "", price: ""},
+    {name: "", description: "", price: ""},
+    {name: "", description: "", price: ""},
+    {name: "", description: "", price: ""}
+  ];
+  
+  const renderData = (info, index) => {
     return(
       <tr key={index} >
-        <td>{data.name}</td>
-        <td>{data.description}</td>
-        <td>{data.price}</td>
+        <td>{info.name}</td>
+        <td>{info.description}</td>
+        <td>{info.price}</td>
       </tr>
     );
   }
@@ -26,14 +27,17 @@ const App = () => {
     <div className="App">
       <ReactBootStrap.Table striped bordered hover>
         <thead className="table-head">
-          <tr className="table-row">
+          <tr>
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
+            <Route>
+              <th><Link to="/Table" component={Table}>+ Add Column</Link></th>
+            </Route>
           </tr>
         </thead>
         <tbody className="table-body">
-          {data.map(renderData)}
+          {info.map(renderData)}
         </tbody>
       </ReactBootStrap.Table>
     </div>
