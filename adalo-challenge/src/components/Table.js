@@ -4,7 +4,7 @@ const Table = (props) => {
 
   const create = e => {
     e.preventDefault();
-    localStorage.setItem("name", e.target.value)
+    localStorage.setItem(props, e.target.value)
   }
 
   const handleChange = e => {
