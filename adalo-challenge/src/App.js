@@ -1,24 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
 import * as ReactBootStrap from 'react-bootstrap';
 import { Route, Link } from 'react-router-dom';
 import Table from './components/Table';
 
 const App = () => {
-  const info = [
-    {name: "", description: "", price: ""},
-    {name: "", description: "", price: ""},
-    {name: "", description: "", price: ""},
-    {name: "", description: "", price: ""},
-    {name: "", description: "", price: ""}
-  ];
+  const [data, setData] = useState([
+    {name: "Name"},
+    {name: "Description"},
+    {name: "Price"},
+  ]);
+
+  useEffect(() => {
+    localStorage.setItem('data', JSON.stringify(data))
+  }, [data])
   
-  const renderData = (info, index) => {
+  const renderData = (data, index) => {
     return(
       <tr key={index} >
-        <td>{info.name}</td>
-        <td>{info.description}</td>
-        <td>{info.price}</td>
+        <td>{data.description}</td>
+        <td>{data.price}</td>
+        <td></td>
       </tr>
     );
   }
@@ -28,16 +30,14 @@ const App = () => {
       <ReactBootStrap.Table striped bordered hover>
         <thead className="table-head">
           <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
+            {data.map(column => <th>{column.name}</th>) }
             <Route>
               <th><Link to="/Table" component={Table}>+ Add Column</Link></th>
             </Route>
           </tr>
         </thead>
         <tbody className="table-body">
-          {info.map(renderData)}
+          {data.map(renderData)}
         </tbody>
       </ReactBootStrap.Table>
     </div>
